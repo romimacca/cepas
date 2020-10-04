@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_04_023727) do
+ActiveRecord::Schema.define(version: 2020_10_04_025522) do
 
   create_table "strains", force: :cascade do |t|
     t.string "name"
     t.boolean "avalaible", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "wine_strains", force: :cascade do |t|
+    t.integer "wine_id"
+    t.integer "strain_id"
+    t.integer "percentage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["strain_id"], name: "index_wine_strains_on_strain_id"
+    t.index ["wine_id"], name: "index_wine_strains_on_wine_id"
   end
 
   create_table "wines", force: :cascade do |t|
