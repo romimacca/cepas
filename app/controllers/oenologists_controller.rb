@@ -15,6 +15,7 @@ class OenologistsController < ApplicationController
   # GET /oenologists/new
   def new
     @oenologist = Oenologist.new
+    @magazines = Magazines.all
   end
 
   # GET /oenologists/1/edit
