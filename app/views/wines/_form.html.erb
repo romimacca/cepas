@@ -22,7 +22,7 @@
 
   <div class="field">
     <%= form.label :strains_ids %>
-    <%= form.collection_check_boxes(:strain_ids, @strains_available, :id, :name) do |b| %>
+    <%= form.collection_check_boxes(:strain_ids, @strains_available.order(:name), :id, :name) do |b| %>
       <%= b.label class:"label-checkbox" do %>
         <%= b.check_box + b.text %>
         <%= text_field("wine[strains_percent]", b.value, value: @wine.getPercentageByStrainId(b.value) )%>

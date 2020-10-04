@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :oenologists
+  resources :job_titles
+  resources :magazines
   resources :wine_strains
   resources :strains
   resources :wines
