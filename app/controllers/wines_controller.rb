@@ -25,9 +25,11 @@ class WinesController < ApplicationController
   # POST /wines.json
   def create
     @wine = Wine.new(wine_params)
-
+    
     respond_to do |format|
       if @wine.save
+        @wine.addStrainPercent(params[:wine][:strains_percent])
+        
         format.html { redirect_to @wine, notice: 'Wine was successfully created.' }
         format.json { render :show, status: :created, location: @wine }
       else
@@ -42,6 +44,8 @@ class WinesController < ApplicationController
   def update
     respond_to do |format|
       if @wine.update(wine_params)
+        @wine.addStrainPercent(params[:wine][:strains_percent])
+
         format.html { redirect_to @wine, notice: 'Wine was successfully updated.' }
         format.json { render :show, status: :ok, location: @wine }
       else
@@ -69,6 +73,6 @@ class WinesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def wine_params
-      params.require(:wine).permit(:name, :score)
+      params.require(:wine).permit(:name, :score, {strain_ids: []}, :strains_percent)
     end
 end
