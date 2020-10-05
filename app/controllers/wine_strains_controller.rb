@@ -1,5 +1,6 @@
 class WineStrainsController < ApplicationController
-  before_action :set_wine_strain, only: [:show, :edit, :update, :destroy]
+  before_action :set_wine_strain, only: [:show, :edit, :update, :destroy] 
+  before_action :authorize_admin!
 
   # GET /wine_strains
   # GET /wine_strains.json

@@ -1,5 +1,7 @@
 class JobTitlesController < ApplicationController
+  before_action :authorize_admin!, except: [:index] 
   before_action :set_job_title, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_admin!
 
   # GET /job_titles
   # GET /job_titles.json

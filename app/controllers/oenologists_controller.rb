@@ -1,5 +1,6 @@
 class OenologistsController < ApplicationController
   before_action :set_oenologist, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_admin!
 
   # GET /oenologists
   # GET /oenologists.json
