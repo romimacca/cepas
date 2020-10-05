@@ -1,6 +1,7 @@
 class Wine < ApplicationRecord
-    has_many :wine_strains
-    has_many :strains, through: :wine_strains
+    has_many :wine_strains, dependent: :destroy
+    has_many :strains, through: :wine_strains, dependent: :destroy
+    has_and_belongs_to_many :oenologists, dependent: :destroy
 
     def addStrainPercent(percents)
         percents.each do |strain_id, percentage|

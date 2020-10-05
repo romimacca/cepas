@@ -1,7 +1,9 @@
 class Oenologist < ApplicationRecord
-    has_many :oenologistmagazinejobs
-    has_many :magazines, through: :oenologistmagazinejobs
-    has_many :job_titles, through: :oenologistmagazinejobs
+    has_many :oenologistmagazinejobs, dependent: :destroy
+    has_many :magazines, through: :oenologistmagazinejobs, dependent: :destroy
+    has_many :job_titles, through: :oenologistmagazinejobs, dependent: :destroy
+
+    has_and_belongs_to_many :wines
 
     def set_references(arr_jobs)
         self.oenologistmagazinejobs.destroy_all

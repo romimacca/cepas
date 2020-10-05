@@ -14,24 +14,34 @@
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
-
+  <hr>
   <div class="field">
-    <%= form.label :score %>
-    <%= form.number_field :score %>
-  </div>
-
-  <div class="field">
-    <%= form.label :strains_ids %>
-    <%= form.collection_check_boxes(:strain_ids, @strains_available.order(:name), :id, :name) do |b| %>
+    <b><%= form.label :strains_ids %></b>
+    <%= form.collection_check_boxes(:strain_ids, @strains_available, :id, :name) do |b| %>
       <%= b.label class:"label-checkbox" do %>
         <%= b.check_box + b.text %>
         <%= text_field("wine[strains_percent]", b.value, value: @wine.getPercentageByStrainId(b.value) )%>
-
       <% end %>
-      
     <% end %>
-    
   </div>
+  <hr>
+  <% if @oenologists %>
+    <div class="field">
+      <%= form.label :score %>
+      <%= form.number_field :score %>
+    </div>
+    <div class="field">
+      <b><%= form.label :oenologists %></b>
+      <%= form.collection_check_boxes(:oenologists, @oenologists, :id, :name) do |o| %>
+        <%= o.label class:"label-checkbox" do %>
+          <%= (@wine.oenologists.pluck(:id).include? (o.value)) ? o.check_box({checked: true}) : o.check_box%>
+          <%= o.text %>
+        <% end %>
+      <% end %>
+    </div>
+  
+  <% end %>
+  
 
   <div class="actions">
     <%= form.submit %>
