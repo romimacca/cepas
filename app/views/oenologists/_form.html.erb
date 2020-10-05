@@ -28,12 +28,20 @@
   <hr>
 
   <div class="field">
-    <%= form.label :magazines %>
-    <%= form.collection_check_boxes(:magazines, @magazines.order(:name), :id, :name) do |m| %>
+    <b><%= form.label :magazines %></b>
+    <%= form.collection_check_boxes(:magazines, @magazines, :id, :name) do |m| %>
       <%= m.text %>
-      
+      <ul>
+        <!-- Job  -->
+        <%= form.collection_check_boxes("job_titles[#{m.value}]", @jobs_title, :id, :name) do |j| %>      
+          <li> 
+            <%= (@oenologist.oenologistmagazinejobs.where(magazine_id: m.value).pluck(:job_title_id).include? (j.value)) ? j.check_box({checked: true}) : j.check_box %>
+            <%= j.text %>            
+          </li>
+        <% end %>
+        
+      </ul>
     <% end %>
-    
   </div>
 
   <div class="actions">

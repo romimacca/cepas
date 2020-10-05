@@ -15,11 +15,14 @@ class OenologistsController < ApplicationController
   # GET /oenologists/new
   def new
     @oenologist = Oenologist.new
-    @magazines = Magazines.all
+    @magazines = Magazine.all
+    @jobs_title = JobTitle.all
   end
 
   # GET /oenologists/1/edit
   def edit
+    @magazines = Magazine.all
+    @jobs_title = JobTitle.all
   end
 
   # POST /oenologists
@@ -29,6 +32,7 @@ class OenologistsController < ApplicationController
 
     respond_to do |format|
       if @oenologist.save
+        @oenologist.set_references(params[:oenologist][:job_titles])
         format.html { redirect_to @oenologist, notice: 'Oenologist was successfully created.' }
         format.json { render :show, status: :created, location: @oenologist }
       else
@@ -43,6 +47,7 @@ class OenologistsController < ApplicationController
   def update
     respond_to do |format|
       if @oenologist.update(oenologist_params)
+        @oenologist.set_references(params[:oenologist][:job_titles])
         format.html { redirect_to @oenologist, notice: 'Oenologist was successfully updated.' }
         format.json { render :show, status: :ok, location: @oenologist }
       else
